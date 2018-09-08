@@ -22,13 +22,17 @@ import React, { Component } from 'react';
         <div>
           <input
           value={this.state.term}
-          onChange={this.onInputChange} /><br/>
+          onChange={e => this.onInputChange(e.target.value)} /><br/>
           Value of the Input: {this.state.term}
         </div>
       )
     }
-  }
 
+    onInputChange=(term) => {
+      this.setState({term});
+      this.props.onSearchTermChange(term)
+  }
+}
 
 
 export default SearchBar;
