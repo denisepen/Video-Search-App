@@ -4,6 +4,7 @@ import SearchBar from './components/searchbar';
 import YTSearch from 'youtube-api-search';
 import VideoList from './components/video-list';
 import VideoDetail from './components/video_detail';
+import _ from 'lodash';
 
 const  API_KEY = 'AIzaSyCWpqY58-mPbgAcyGjpFs2Bv64CVS4dybU';
 
@@ -30,10 +31,13 @@ class App extends Component {
   }
 
   render() {
+    const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300)
+
     return (
       <div className="App">
         <h2>Hello</h2>
         <SearchBar onSearchTermChange={term => this.videoSearch(term)} />
+        <SearchBar onSearchTermChange={videoSearch} />
         <VideoDetail video={this.state.selectedVideo}/>
         <VideoList
           onVideoSelect={selectedVideo => this.setState({
